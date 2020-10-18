@@ -469,3 +469,139 @@ export const reqGoodsDel=(params)=>{
         data:qs.stringify(params),
     })
 }
+
+
+/************ 会员管理 **************/
+
+//列表接口 根据后台需要 后台要数据 所以用 params
+//传递参数还得是  params={page：1，size：10}
+export const reqMemberList=(params)=>{
+    return axios({
+        // baseUrl基础路径加上 后台要求的路径
+        url:baseUrl+"/api/memberlist",
+        method:"get",
+        params:params
+    })
+}
+
+//编辑按钮 一条数据请求 
+export const reqMemberDetail=(uid)=>{
+    return axios({
+        // baseUrl基础路径加上 后台要求的路径
+        url:baseUrl+"/api/memberinfo",
+        method:"get",
+        params:{
+            uid:uid
+        }
+    })
+}
+
+export const reqMemberUpdate=(params)=>{
+    return axios({
+        // baseUrl基础路径加上 后台要求的路径
+        url:baseUrl+"/api/memberedit",
+        method:"post",
+        data:qs.stringify(params)
+    })
+}
+
+
+/************ 轮播图管理 **************/
+export const reqBannerList = () => {
+    return axios({
+        url: baseUrl + "/api/bannerlist",
+        method: "get"
+    })
+}
+//添加  params={title:"123",img:File,state:1}
+export const reqBannerAdd = (params) => {
+    let data = new FormData()
+
+    for (let i in params) {
+        data.append(i, params[i])
+    }
+    return axios({
+        url: baseUrl + "/api/banneradd",
+        method: "post",
+        data: data
+    })
+}
+//1条数据
+export const reqBannerDetail = (id) => {
+    return axios({
+        url: baseUrl + "/api/bannerinfo",
+        method: "get",
+        params: {
+            id: id
+        }
+    })
+}
+//修改
+export const reqBannerUpdate = (params) => {
+    let data = new FormData()
+    for (let i in params) {
+        data.append(i, params[i])
+    }
+    return axios({
+        url: baseUrl + "/api/banneredit",
+        method: "post",
+        data: data
+    })
+}
+//删除
+export const reqBannerDel = (id) => {
+    return axios({
+        url: baseUrl + "/api/bannerdelete",
+        method: "post",
+        data: qs.stringify({ id: id })
+    })
+}
+
+
+/************ 秒杀管理 **************/
+//1.添加接口
+export const reqSeckillList = (params) => {
+    return axios({
+        url: baseUrl + '/api/secklist',
+        params:params
+    })
+}
+
+export const reqSeckillAdd = (params) => {
+    return axios({
+      url: baseUrl + '/api/seckadd',
+      method: 'post',
+      data: qs.stringify(params)
+    })
+  }
+
+// 限时秒杀获取一条
+export const reqSeckillDetail = (id) => {
+    return axios({
+        url: baseUrl + '/api/seckinfo',
+        params: {
+            id,
+        }
+    })
+}
+
+// 限时秒杀修改 
+
+export const reqSeckillUpdate = (params) => {
+    return axios({
+        url: baseUrl + '/api/seckedit',
+        method: 'post',
+        data: params,
+    })
+}
+
+
+export const reqSeckillDel = (id) => {
+    return axios({
+        url: baseUrl + '/api/seckdelete',
+        method: 'post',
+        data: {
+            id,
+        }
+    })
+}
