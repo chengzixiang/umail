@@ -32,7 +32,7 @@
             >
             <!-- label是你选中的词  value是展示 的词 -->
             <!-- value中number类型就在前面加：要不然就是字符串 -->
-            <el-option label="顶级分类" :value="0"></el-option>
+            <el-option label="顶级分类" :value="0" ></el-option>
             <!-- list有几个 下拉菜单就应该有几个数据 -->
             <el-option 
             v-for="item in list" 
@@ -225,9 +225,28 @@ export default {
       this.imgUrl=""
     },
 
+    checkedData() {
+       
+        if (this.form.catename == "") {
+            warningAlert("分类名称不能为空");
+            return false;
+      };
+        if (this.imgUrl == "") {
+            warningAlert("图片不能为空");
+            return false;
+      };
+            //如果上面都没有拦 就代表验证过了
+          return true
+    },
+
 
     //点击了 添加按钮就要请求了
     add(){
+      if(!this.checkedData()){
+        return;
+      }
+
+
       //在发参数之前 可先注释一下 然后 log下 看看是不是自己想要的东西
       // console.log(this.form);
 
@@ -274,6 +293,9 @@ export default {
     },
     //修改按钮
     update(){
+      if(!this.checkedData()){
+        return;
+      }
       //访问接口 接着在request里面写接口 然后修改数据
       //当发生修改的时候 form传过去
       reqCateUpdate(this.form).then((res) => {

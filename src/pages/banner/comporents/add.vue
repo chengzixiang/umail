@@ -140,7 +140,25 @@ export default {
         
         this.imgUrl="";
     },
+
+    checkedData() {
+       
+        if (this.form.title == "") {
+            warningAlert("标题不能为空");
+            return false;
+      };
+        if (this.imgUrl == "") {
+            warningAlert("图片不能为空");
+            return false;
+      };
+            //如果上面都没有拦 就代表验证过了
+          return true
+    },
+
     add(){
+      if(!this.checkedData()){
+        return;
+      }
 
       reqBannerAdd(this.form).then(res=>{
         if (res.data.code == 200) {
@@ -168,6 +186,9 @@ export default {
     },
     
     update(){
+      if(!this.checkedData()){
+        return;
+      }
       reqBannerUpdate(this.form).then(res=>{
       if (res.data.code == 200) {
           successAlert(res.data.msg);

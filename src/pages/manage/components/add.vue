@@ -145,8 +145,32 @@ export default {
         }
       },
 
+
+      checkedData() {
+       
+        if (this.form.roleid == "") {
+              warningAlert("所属角色请添加");           
+              return false;
+        };
+
+        if (this.form.username == "") {
+            warningAlert("用户名不能为空");
+            return false;
+      };
+        if (this.form.password == "") {
+            warningAlert("密码不能为空");
+            return false;
+      };
+            //如果上面都没有拦 就代表验证过了
+          return true
+    },
+
     //点击了 添加按钮就要请求了
     add(){
+      if(!this.checkedData()){
+        return;
+      }
+
       console.log("asd");
       //在发参数之前 可先注释一下 然后 log下 看看是不是自己想要的东西
       // console.log(this.form);
@@ -195,6 +219,10 @@ export default {
     },
     //修改按钮
     update(){
+      if(!this.checkedData()){
+        return;
+      }
+
       //访问接口 接着在request里面写接口 然后修改数据
       //当发生修改的时候 form传过去
       reqManageUpdate(this.form).then((res)=>{

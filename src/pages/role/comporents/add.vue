@@ -147,9 +147,21 @@ export default {
       }
     },
 
+    checkedData() {
+          if (this.form.rolename == "") {
+          warningAlert("角色名称不能为空");
+          return false;
+        };
+            //如果上面都没有拦 就代表验证过了
+          return true
+      },
 
     //点击了 添加按钮就要请求了
     add(){
+         if(!this.checkedData()){
+        return;
+      }
+
         // 根据要求 规定是这样去取的 先测试一下  得到的结果是一个数组
         /*可以得到当前选中的节点 对应的id  所选择的id 返回的是一个数组 
             这个数组应该放到form的menus上面    */
@@ -208,6 +220,10 @@ export default {
     },
     //修改按钮
     update(){
+       if(!this.checkedData()){
+        return;
+      }
+
       //访问接口 接着在request里面写接口 然后修改数据
       //当发生修改的时候 form传过去
 

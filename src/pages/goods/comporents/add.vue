@@ -363,10 +363,52 @@ export default {
 
     },
 
+    checkedData() {
+        if (this.form.first_cateid == "") {
+              warningAlert("一级菜单请添加");           
+              return false;
+        };
+        if (this.form.second_cateid == "") {
+              warningAlert("二级菜单请添加");           
+              return false;
+        };
+          if (this.form.goodsname == "") {
+              warningAlert("商品名称不能为空");
+              return false;
+        };
+          if (this.form.price == "") {
+              warningAlert("价格不能为空");
+              return false;
+        };
+          if (this.form.market_price == "") {
+              warningAlert("市场价格不能为空");
+              return false;
+        };
+        if (this.imgUrl == "") {
+            warningAlert("图片不能为空");
+            return false;
+      };
+      if (this.form.specsid == "") {
+              warningAlert("商品规格请添加");           
+              return false;
+        };
+        if (this.form.specsattr == "") {
+              warningAlert("商品属性请添加");           
+              return false;
+        };
+            //如果上面都没有拦 就代表验证过了
+          return true
+    },
+
+
+
 //3.   =============================3.添加
     //点击了 添加按钮就要请求了
     add(){
 
+      if(!this.checkedData()){
+        return;
+      }
 //15.   =============================15.传参
       // let data = this.form;
       // data.specsattr=JSON.stringify(this.form.specsattr)  等于下面的
@@ -443,6 +485,10 @@ export default {
 //19 =============================  19. 点了修改 改变数据
     //修改按钮
     update(){
+
+      if(!this.checkedData()){
+        return;
+      }
       //因为也可能 更新掉form.discretion 所以这里也要取一下
       this.editor.txt.html(this.form.description)
 

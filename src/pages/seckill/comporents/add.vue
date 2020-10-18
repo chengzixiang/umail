@@ -190,8 +190,38 @@ export default {
     //获得二级分类list
 
     //点击了添加按钮
+    checkedData() {
+
+        if (this.form.title == "") {
+            warningAlert("活动名称不能为空");
+            return false;
+      };
+        if (this.form.begintime == "" && this.form.endtime == "") {
+            warningAlert("活动期限不能为空");
+            return false;
+      };
+       if (this.form.first_cateid == "") {
+              warningAlert("一级分类请添加");           
+              return false;
+        };
+       if (this.form.second_cateid == "") {
+              warningAlert("二级分类请添加");           
+              return false;
+        };
+       if (this.form.goodsid == "") {
+              warningAlert("商品请添加");           
+              return false;
+        };
+
+            //如果上面都没有拦 就代表验证过了
+          return true
+    },
+
     add() {
-    
+      if(!this.checkedData()){
+        return;
+      }
+
       reqSeckillAdd(this.form).then((res) => {
         if (res.data.code == 200) {
           //成功
@@ -229,6 +259,9 @@ export default {
     },
     //修改
     update() {
+      if(!this.checkedData()){
+        return;
+      }
       reqSeckillUpdate(this.form).then((res) => {
         if (res.data.code == 200) {
           successAlert(res.data.msg);

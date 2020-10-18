@@ -180,9 +180,27 @@ export default {
       }
     },
 
+    checkedData() {
+        if (this.form.title == "") {
+        warningAlert("菜单名称不能为空");
+        return false;
+        };
+      //  因为有一个添加是不能删除的 所以这里验证 所有属性必填
+        if (this.form.icon == "" || this.form.item == "") {
+              warningAlert("菜单图标请选择");
+              //结束当前函数 结束的是 自己 但是没有结束add 一旦拆除去就拦不住了 
+              return false;
+            }
+            //如果上面都没有拦 就代表验证过了
+          return true
+      },
 
     //点击了 添加按钮就要请求了
     add(){
+        if(!this.checkedData()){
+        return;
+      }
+
       //在发参数之前 可先注释一下 然后 log下 看看是不是自己想要的东西
       // console.log(this.form);
 
@@ -210,6 +228,8 @@ export default {
     },
     //获取菜单详情 一条输
     look(id){
+      
+
       //收到id后 走请求  记得引入
       reqMenuDetail(id).then(res=>{
         //把list赋值给json  整个过程叫双向数据绑定
@@ -228,6 +248,10 @@ export default {
     },
     //修改按钮
     update(){
+      if(!this.checkedData()){
+        return;
+      }
+
       //访问接口 接着在request里面写接口 然后修改数据
       //当发生修改的时候 form传过去
       reqMenuUpdate(this.form).then(res=>{
